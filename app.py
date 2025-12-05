@@ -1,13 +1,9 @@
 from flask import Flask, render_template, request
 import pdfplumber
-import spacy
 
 app = Flask(__name__)
 
-# Load spaCy English model (make sure you ran: python -m spacy download en_core_web_sm)
-nlp = spacy.load("en_core_web_sm")
-
-# List of tech skills to detect (acts like a mini database)
+# List of tech skills to detect
 KNOWN_SKILLS = [
     "python", "java", "c", "c++",
     "html", "css", "javascript", "react",
@@ -44,21 +40,13 @@ def extract_text_from_pdf(file_obj):
 
 def extract_skills(text):
     """
-    Improved skill detection:
-    - Uses spaCy to go through each token
-    - Checks if skill names appear inside tokens or in the full text
+    Simple skill detection:
+    - convert text to lowercase
+    - check if each known skill appears in the text
     """
-    doc = nlp(text.lower())
+    text_lower = text.lower()
     found = set()
 
-    # token-based matching (catches things like 'python3', 'javascript-dev')
-    for token in doc:
-        for skill in KNOWN_SKILLS:
-            if skill in token.text:
-                found.add(skill)
-
-    # phrase-level matching (for 'machine learning', 'deep learning', etc.)
-    text_lower = text.lower()
     for skill in KNOWN_SKILLS:
         if skill in text_lower:
             found.add(skill)
@@ -85,7 +73,6 @@ def formatting_score(text):
     Gives a simple formatting score out of 20 based on:
     - presence of bullet points
     - presence of common sections like education, skills, projects, etc.
-    This is a heuristic, not perfect.
     """
     bullet_chars = ["•", "-", "*"]
     has_bullets = any(char in text for char in bullet_chars)
