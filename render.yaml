@@ -3,7 +3,5 @@ services:
     name: resume-analyzer
     env: python
     plan: free
-    buildCommand: |
-      pip install -r requirements.txt
-      python -m spacy download en_core_web_sm
+    buildCommand: pip install -r requirements.txt
     startCommand: gunicorn app:app
