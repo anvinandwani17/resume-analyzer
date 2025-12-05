@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AI Resume Analyzer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Poppins", sans-serif;
+            background: linear-gradient(135deg, #eef2ff, #f9fafb);
+            margin: 0;
+            padding: 0;
+        }
+
+        .wrapper {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .card {
+            width: 100%;
+            max-width: 650px;
+            background: #ffffff;
+            border-radius: 18px;
+            padding: 32px 32px 26px;
+            box-shadow:
+                0 18px 40px rgba(15, 23, 42, 0.12),
+                0 1px 3px rgba(15, 23, 42, 0.08);
+        }
+
+        h1 {
+            text-align: center;
+            margin: 0 0 10px;
+            font-weight: 700;
+            letter-spacing: 0.03em;
+        }
+
+        .subtitle {
+            text-align: center;
+            font-size: 14px;
+            color: #6b7280;
+            margin-bottom: 24px;
+        }
+
+        .upload-area {
+            border: 2px dashed #cbd5f5;
+            border-radius: 14px;
+            padding: 28px 20px;
+            text-align: center;
+            background: #f9fbff;
+        }
+
+        .upload-area:hover {
+            border-color: #4f46e5;
+        }
+
+        .upload-title {
+            font-weight: 500;
+            margin-bottom: 6px;
+        }
+
+        input[type="file"] {
+            margin: 14px 0;
+        }
+
+        button {
+            margin-top: 10px;
+            padding: 10px 26px;
+            border: none;
+            border-radius: 999px;
+            background: linear-gradient(135deg, #4f46e5, #6366f1);
+            color: #ffffff;
+            font-size: 15px;
+            font-weight: 500;
+            cursor: pointer;
+            box-shadow: 0 8px 20px rgba(79, 70, 229, 0.3);
+            transition: transform 0.12s ease, box-shadow 0.12s ease;
+        }
+
+        button:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 12px 26px rgba(79, 70, 229, 0.35);
+        }
+
+        .error {
+            margin-top: 16px;
+            padding: 10px 14px;
+            border-radius: 10px;
+            background: #fef2f2;
+            color: #b91c1c;
+            font-size: 13px;
+            text-align: center;
+        }
+
+        .footer {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 12px;
+            color: #9ca3af;
+        }
+
+        .pill-row {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .pill {
+            padding: 5px 12px;
+            border-radius: 999px;
+            background: #eef2ff;
+            font-size: 11px;
+            color: #4f46e5;
+        }
+    </style>
+</head>
+<body>
+
+<div class="wrapper">
+    <div class="card">
+        <h1>AI Resume Analyzer</h1>
+        <p class="subtitle">
+            Upload your PDF resume and get an instant score, detected skills, and improvement suggestions.
+        </p>
+
+        <div class="pill-row">
+            <div class="pill">PDF only</div>
+            <div class="pill">Skill Match</div>
+            <div class="pill">Projects & Formatting</div>
+        </div>
+
+        <form class="upload-area" method="POST" enctype="multipart/form-data">
+            <div class="upload-title">Drop your resume here or click to upload</div>
+            <input type="file" name="resume" accept=".pdf">
+            <br>
+            <button type="submit">Analyze My Resume</button>
+
+            {% if error %}
+            <div class="error">{{ error }}</div>
+            {% endif %}
+        </form>
+
+        <div class="footer">
+            Made with 💙 using Python & Flask
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
+
